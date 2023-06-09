@@ -1,0 +1,40 @@
+﻿<Window x:Class="ModalContentPresenterWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ModalContentPresenterWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:modalPresenter="clr-namespace:modModalContentPresenter;assembly=modModalContentPresenter"
+        xmlns:viewModels="clr-namespace:ModalContentPresenterWPF.ViewModels"
+        xmlns:models="clr-namespace:ModalContentPresenterWPF.Models"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+    
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type models:SomethingA}">
+            <local:FirstUserControl/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:SomethingB}">
+            <local:SecondUserControl/>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <modalPresenter:ModalContentPresenter IsModal="{Binding IsModal}">
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content = "First" Command="{Binding ShowFirstCommand}" Width = "75" Height="20"/>
+            <Button Content = "Second" Command="{Binding ShowSecondCommand}" Width = "75" Height="20"/>
+        </StackPanel>
+
+        <modalPresenter:ModalContentPresenter.ModalContent>
+
+            <ContentControl Content="{Binding SomethingItem}"/>
+
+        </modalPresenter:ModalContentPresenter.ModalContent>
+        
+    </modalPresenter:ModalContentPresenter>
+</Window>
